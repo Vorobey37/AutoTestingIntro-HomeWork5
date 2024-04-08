@@ -67,6 +67,8 @@ public class IpAddressSearchTest extends AbstractTest{
                 .withQueryParam("EnglishName", equalTo("Narvskiy"))
                 .willReturn(aResponse().withStatus(200).withBody(objectMapper.writeValueAsString(bodyOk))));
 
+        //у Вас тут адрес "/forecasts/v1/hourly/autocomplete", но в http клменте на строке 78 Вы определяете адрес "/locations/v1/cities/autocomplete"
+        //в таком случае Вам надо делать два HttpGet объекта
         stubFor(WireMock.get(urlPathEqualTo("/forecasts/v1/hourly/autocomplete"))
                 .withQueryParam("EnglishName", equalTo("Not Narvskiy"))
                 .willReturn(aResponse().withStatus(200).withBody(objectMapper.writeValueAsString(bodyError))));
@@ -111,6 +113,8 @@ public class IpAddressSearchTest extends AbstractTest{
                 .withQueryParam("value", equalTo("RU"))
                 .willReturn(aResponse().withStatus(200).withBody(objectMapper.writeValueAsString(bodyOk))));
 
+        //у Вас тут адрес "/forecasts/v1/hourly/autocomplete", но в http клменте на строке 78 Вы определяете адрес "/locations/v1/cities/autocomplete"
+        //в таком случае Вам надо делать два HttpGet объекта
         stubFor(WireMock.get(urlPathEqualTo("/forecasts/v1/hourly/autocomplete"))
                 .withQueryParam("value", equalTo("Error"))
                 .willReturn(aResponse().withStatus(200).withBody(objectMapper.writeValueAsString(bodyError))));
